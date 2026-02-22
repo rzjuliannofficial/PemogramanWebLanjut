@@ -8,5 +8,7 @@
 </p>
 
 ## Praktikum 1
-<img src="z_img_laporan/1.png" alt="Build Status">
+1)
+<img src="z_img_laporan/1.png" alt="laporan01">
+<img src="z_img_laporan/2.png" alt="laporan01">
 
