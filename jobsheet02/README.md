@@ -11,18 +11,25 @@
 1)
 <img src="z_img_laporan/1.png" alt="laporan01">
 <img src="z_img_laporan/2.png" alt="laporan01">
+
 ---
+
 2)
 <img src="z_img_laporan/3.png" alt="laporan02">
 <img src="z_img_laporan/4.png" alt="laporan02">
 <img src="z_img_laporan/5.png" alt="laporan02">
 <img src="z_img_laporan/6.png" alt="laporan02">
+
 ---
+
 3)
 <img src="z_img_laporan/7.png" alt="laporan03">
 Akan menampilkan (kosong) jika parameter tidak di isi dan menampilkan jika parameter di isi
+
 <img src="z_img_laporan/8.png" alt="laporan03">
 Akan menampilkan nilai default jika parameter tidak di isi
+
 <img src="z_img_laporan/9.png" alt="laporan03">
 Kode dari Hasil diatas
+
 ---
