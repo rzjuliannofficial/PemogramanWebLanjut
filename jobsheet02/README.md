@@ -57,6 +57,8 @@ Kode dari Hasil diatas
 <img src="z_img_laporan/18.png" alt="laporan02">
 
 - 3)
-<img src="z_img_laporan/18.png" alt="laporan02">
+<img src="z_img_laporan/19.png" alt="laporan03">
 
+- 4)
+<img src="z_img_laporan/20.png" alt="laporan04">
 
