@@ -49,10 +49,14 @@ Kode dari Hasil diatas
 
 ## Praktikum 3
 - 1)
-<img src="z_img_laporan/16.png" alt="laporan02">
+<img src="z_img_laporan/17.png" alt="laporan02">
 ---
 
 - 2)
 <img src="z_img_laporan/17.png" alt="laporan02">
-<img src="z_img_laporan/16.png" alt="laporan02">
+<img src="z_img_laporan/18.png" alt="laporan02">
+
+- 3)
+<img src="z_img_laporan/18.png" alt="laporan02">
+
 
