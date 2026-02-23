@@ -1,9 +1,11 @@
 # PemogramanWebLanjut
 
-Repository ini berisi source code untuk proyek/materi **Pemrograman Web Lanjut**.  
-Teknologi utama yang digunakan: **PHP (Laravel)** dan **Blade Template**.
+Nama : Nabhan Rizqi Julian Saputro
+Nim : 2341720255
+Prodi : D-IV Teknik Informatika
 
-> TODO: Tambahkan deskripsi singkat aplikasi/proyek ini (fitur utama, tujuan, dll).
+> Repository ini berisi source code untuk proyek/materi **Pemrograman Web Lanjut**.  
+  Teknologi utama yang digunakan: **PHP (Laravel)** dan **Blade Template**.
 
 ## Teknologi
 - PHP (disarankan 8.x)
