@@ -44,3 +44,6 @@ Kode dari Hasil diatas
 ---
 
 - 2)
+<img src="z_img_laporan/15.png" alt="laporan02">
+<img src="z_img_laporan/16.png" alt="laporan02">
+
