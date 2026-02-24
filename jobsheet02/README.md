@@ -8,9 +8,9 @@
 </p>
 
 ## Profil
-Nama : Nabhan Rizqi Julian Saputro
-Kelas : 2F-TI
-Nim : 2341720255
+Nama : Nabhan Rizqi Julian Saputro <br>
+Kelas : 2F-TI <br>
+Nim : 2341720255 <br>
 ---
 
 ## Praktikum 1
@@ -71,4 +71,4 @@ Kode dari Hasil diatas
 ---
 
 ## Tugas Jobsheet 2
-Akses : [POS](https://github.com/rzjuliannofficial/PemogramanWebLanjut/tree/ae7ab880010031d2906a9ee979893303815a7f2e/POS_tugas_jobsheet02)
+Akses : [POS](https://github.com/rzjuliannofficial/PemogramanWebLanjut/tree/5c0dc3a3cc450f2543445082ae000964e09aef30/POS_tugas_jobsheet02)
