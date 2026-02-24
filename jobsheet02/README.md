@@ -7,6 +7,12 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Profil
+Nama : Nabhan Rizqi Julian Saputro
+Kelas : 2F-TI
+Nim : 2341720255
+---
+
 ## Praktikum 1
 - 1)
 <img src="z_img_laporan/1.png" alt="laporan01">
@@ -62,3 +68,7 @@ Kode dari Hasil diatas
 - 4)
 <img src="z_img_laporan/20.png" alt="laporan04">
 
+---
+
+## Tugas Jobsheet 2
+Akses : [POS](https://github.com/rzjuliannofficial/PemogramanWebLanjut/tree/ae7ab880010031d2906a9ee979893303815a7f2e/POS_tugas_jobsheet02)

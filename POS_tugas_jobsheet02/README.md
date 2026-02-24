@@ -8,4 +8,5 @@
 </p>
 
 ## Tugas Jobsheet02
-masuk ga
+- **Tampilan POS**
+<img src="z_img_laporan/image.png">
