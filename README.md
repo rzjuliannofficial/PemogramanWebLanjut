@@ -4,6 +4,8 @@ Nama : Nabhan Rizqi Julian Saputro
 <br>
 Nim : 2341720255
 <br>
+Kelas : 2F-TI
+<br>
 Prodi : D-IV Teknik Informatika
 <br>
 
