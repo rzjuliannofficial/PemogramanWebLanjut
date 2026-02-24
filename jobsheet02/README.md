@@ -71,4 +71,4 @@ Kode dari Hasil diatas
 ---
 
 ## Tugas Jobsheet 2
-Akses : [POS](https://github.com/rzjuliannofficial/PemogramanWebLanjut/tree/5c0dc3a3cc450f2543445082ae000964e09aef30/POS_tugas_jobsheet02)
+Akses: [POS](https://github.com/rzjuliannofficial/PemogramanWebLanjut/tree/5c0dc3a3cc450f2543445082ae000964e09aef30/POS_tugas_jobsheet02)
