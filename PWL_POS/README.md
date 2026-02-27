@@ -17,3 +17,8 @@
 **Praktikum 2.1**
 <img src="z_img_laporan/1.png">
 ---
+
+**Praktikum 2.2**
+<img src="z_img_laporan/2.png">
+<img src="z_img_laporan/3.png">
+<img src="z_img_laporan/4.png">
