@@ -9,4 +9,11 @@
 
 ## Tugas Jobsheet02
 - **Tampilan POS**
-<img src="z_img_laporan/image.png">
+<img src="z_img_laporan/tugas_js2.png">
+
+---
+
+## Laporan Jobsheet03
+**Praktikum 2.1**
+<img src="z_img_laporan/1.png">
+---
