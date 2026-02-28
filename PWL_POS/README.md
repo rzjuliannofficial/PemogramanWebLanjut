@@ -7,6 +7,14 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Profil
+Nama : Nabhan Rizqi Julian Saputro <br>
+Kelas : 2F-TI <br>
+Nim : 2341720255 <br>
+
+---
+
+
 ## Tugas Jobsheet02
 - **Tampilan POS**
 <img src="z_img_laporan/tugas_js2.png">
