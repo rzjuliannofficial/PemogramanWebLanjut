@@ -15,8 +15,8 @@
 
 ## Laporan Jobsheet03
 
-**MIGRATION**
-**Praktikum 2.1**
+**MIGRATION** <br>
+**Praktikum 2.1** <br>
 <img src="z_img_laporan/1.png">
 ---
 
@@ -33,12 +33,12 @@
 
 **DB FACADE**
 **Praktikum 4**
-insert Data Pengguna
+insert Data Pengguna<br>
 <img src="z_img_laporan/7.png">
 <img src="z_img_laporan/8.png">
 ---
 
-update data Pengguna
+update data Pengguna<br>
 <img src="z_img_laporan/9.png">
 <img src="z_img_laporan/10.png">
 <img src="z_img_laporan/11.png">
@@ -47,24 +47,24 @@ update data Pengguna
 <img src="z_img_laporan/14.png">
 ---
 
-**QUERY BUILDER**
-**Praktikum 5**
-Insert Kategori Barang
+**QUERY BUILDER**<br>
+**Praktikum 5**<br>
+Insert Kategori Barang<br>
 <img src="z_img_laporan/15.png">
 
-Update
+Update<br>
 <img src="z_img_laporan/16.png">
 <img src="z_img_laporan/17.png">
 
-Delete
+Delete<br>
 <img src="z_img_laporan/18.png">
 <img src="z_img_laporan/19.png">
 
-Tampilkan
+Tampilkan<br>
 <img src="z_img_laporan/20.png">
 ---
 
-**ELOQUENT ORM**
-**Praktikum 6**
+**ELOQUENT ORM**<br>
+**Praktikum 6**<br>
 <img src="z_img_laporan/21.png">
 <img src="z_img_laporan/22.png">
