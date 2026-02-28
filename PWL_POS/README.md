@@ -28,3 +28,17 @@
 **SEEDER**
 **Praktikum 3**
 <img src="z_img_laporan/6.png">
+
+**DB FACADE**
+**Praktikum 4**
+insert Data Pelanggan
+<img src="z_img_laporan/7.png">
+<img src="z_img_laporan/8.png">
+
+update Nama Pelanggan
+<img src="z_img_laporan/9.png">
+<img src="z_img_laporan/10.png">
+<img src="z_img_laporan/11.png">
+<img src="z_img_laporan/12.png">
+<img src="z_img_laporan/13.png">
+<img src="z_img_laporan/14.png">
