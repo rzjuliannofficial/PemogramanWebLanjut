@@ -66,5 +66,5 @@ Tampilkan
 
 **ELOQUENT ORM**
 **Praktikum 6**
-<img src="z_img_laporan/20.png">
-<img src="z_img_laporan/20.png">
+<img src="z_img_laporan/21.png">
+<img src="z_img_laporan/22.png">
