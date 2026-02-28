@@ -20,19 +20,19 @@
 <img src="z_img_laporan/1.png">
 ---
 
-**Praktikum 2.2**
+**Praktikum 2.2**<br>
 <img src="z_img_laporan/2.png">
 <img src="z_img_laporan/3.png">
 <img src="z_img_laporan/4.png">
 ---
 
-**SEEDER**
-**Praktikum 3**
+**SEEDER**<br>
+**Praktikum 3**<br>
 <img src="z_img_laporan/6.png">
 ---
 
-**DB FACADE**
-**Praktikum 4**
+**DB FACADE**<br>
+**Praktikum 4**<br>
 insert Data Pengguna<br>
 <img src="z_img_laporan/7.png">
 <img src="z_img_laporan/8.png">
