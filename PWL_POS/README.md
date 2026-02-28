@@ -31,14 +31,30 @@
 
 **DB FACADE**
 **Praktikum 4**
-insert Data Pelanggan
+insert Data Pengguna
 <img src="z_img_laporan/7.png">
 <img src="z_img_laporan/8.png">
 
-update Nama Pelanggan
+update Nama Pengguna
 <img src="z_img_laporan/9.png">
 <img src="z_img_laporan/10.png">
 <img src="z_img_laporan/11.png">
 <img src="z_img_laporan/12.png">
 <img src="z_img_laporan/13.png">
 <img src="z_img_laporan/14.png">
+
+**QUERY BUILDER**
+**Praktikum 5**
+Insert Kategori Barang
+<img src="z_img_laporan/15.png">
+
+Update
+<img src="z_img_laporan/16.png">
+<img src="z_img_laporan/17.png">
+
+Delete
+<img src="z_img_laporan/18.png">
+<img src="z_img_laporan/19.png">
+
+Tampilkan
+<img src="z_img_laporan/20.png">

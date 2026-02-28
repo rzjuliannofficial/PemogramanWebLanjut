@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\KategoriController;
 use Illuminate\Support\Facades\Route;
 
 // Routes untuk POS - Jobsheet 02
@@ -14,3 +15,4 @@ Route::get('/user/{id}/name/{name}', [UserController::class,'show'])->name('user
 Route::get('/penjualan', [PenjualanController::class,'index'])->name('penjualan');
 
 Route::get('/level', [LevelController::class, 'index']);
+Route::get('/kategori', [KategoriController::class, 'index']);

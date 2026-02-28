@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('kategori_id')->index();
 
             //3. kolom lain sesuai desain
-            $table->sting('barang_kode',10)->unique();
+            $table->string('barang_kode',10)->unique();
             $table->string('barang_nama', 100);
             $table->integer('harga_beli');
             $table->integer('harga_jual');
@@ -35,8 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('m_barang', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('m_barang');
     }
 };

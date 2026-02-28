@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('pembeli', 50);
             $table->string('penjual_kode',20);
             $table->dateTime('penjualan_tanggal');
-            $table->timestamps('created_at');
-            $table->timestamps('upadated_at');
+            $table->timestamp('created_at');
+            $table->timestamp('updated_at');
 
-            $table->foreign('user_id')->refrerences('user_id')->on('m_user');
+            $table->foreign('user_id')->references('user_id')->on('m_user');
         });
     }
 
@@ -30,8 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('t_penjualan', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('t_penjualan');
     }
 };
