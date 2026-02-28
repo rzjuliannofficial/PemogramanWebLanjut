@@ -24,24 +24,28 @@
 <img src="z_img_laporan/2.png">
 <img src="z_img_laporan/3.png">
 <img src="z_img_laporan/4.png">
+---
 
 **SEEDER**
 **Praktikum 3**
 <img src="z_img_laporan/6.png">
+---
 
 **DB FACADE**
 **Praktikum 4**
 insert Data Pengguna
 <img src="z_img_laporan/7.png">
 <img src="z_img_laporan/8.png">
+---
 
-update Nama Pengguna
+update data Pengguna
 <img src="z_img_laporan/9.png">
 <img src="z_img_laporan/10.png">
 <img src="z_img_laporan/11.png">
 <img src="z_img_laporan/12.png">
 <img src="z_img_laporan/13.png">
 <img src="z_img_laporan/14.png">
+---
 
 **QUERY BUILDER**
 **Praktikum 5**
@@ -57,4 +61,10 @@ Delete
 <img src="z_img_laporan/19.png">
 
 Tampilkan
+<img src="z_img_laporan/20.png">
+---
+
+**ELOQUENT ORM**
+**Praktikum 6**
+<img src="z_img_laporan/20.png">
 <img src="z_img_laporan/20.png">

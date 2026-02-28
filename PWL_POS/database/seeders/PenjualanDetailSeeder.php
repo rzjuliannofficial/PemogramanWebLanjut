@@ -22,6 +22,7 @@ class PenjualanDetailSeeder extends Seeder
                     'harga' => 15000,
                     'jumlah' => rand(1, 5),
                     'created_at' => now(),
+                    
                 ];
             }
         }

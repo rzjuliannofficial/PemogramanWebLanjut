@@ -11,8 +11,9 @@ use Illuminate\Support\Facades\Route;
 // Routes untuk POS - Jobsheet 02
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/category/{category}', [ProductController::class,'category'])->name('product.category');
-Route::get('/user/{id}/name/{name}', [UserController::class,'show'])->name('user.show');
+Route::get('/users/{id}/{name}', [UserController::class,'show'])->name('user.show');
 Route::get('/penjualan', [PenjualanController::class,'index'])->name('penjualan');
 
 Route::get('/level', [LevelController::class, 'index']);
 Route::get('/kategori', [KategoriController::class, 'index']);
+Route::get('/user', [UserController::class, 'index']);

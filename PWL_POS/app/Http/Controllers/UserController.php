@@ -3,10 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Models\UserModel;
 
 class UserController extends Controller
 {
+    public function index()
+    {
+        // tambah data user dengan Eloquent Model
+        $data = [
+            'nama' => 'Pelanggan Pertama',
+        ];
+        UserModel::where('username', 'customer-1')->update($data); // tambahkan data ke tabel m_user
+        
+        // coba akses model UserModel
+        $user = UserModel::all(); // ambil semua data dari tabel m_user
+        return view('user', ['data' => $user]);
+    }
     public function show($id, $name){
-        return view('user', ['id' => $id, 'name' => $name]);
+        return view('users', ['id' => $id, 'name' => $name]);
     }
 }

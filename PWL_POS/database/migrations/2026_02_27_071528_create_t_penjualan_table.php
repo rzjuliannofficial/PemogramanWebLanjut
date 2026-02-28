@@ -16,10 +16,10 @@ return new class extends Migration
 
             $table->unsignedBigInteger('user_id')->index();
             $table->string('pembeli', 50);
-            $table->string('penjual_kode',20);
+            $table->string('penjualan_kode',20);
             $table->dateTime('penjualan_tanggal');
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
 
             $table->foreign('user_id')->references('user_id')->on('m_user');
         });
