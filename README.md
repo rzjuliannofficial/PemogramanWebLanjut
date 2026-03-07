@@ -23,7 +23,7 @@ Berikut adalah daftar laporan praktikum per minggu:
 
 - PHP >= 8.2
 - Composer
-- Laravel 11.x
+- Laravel 12.x
 
 ## Instalasi
 
