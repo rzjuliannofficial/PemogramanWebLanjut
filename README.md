@@ -18,6 +18,8 @@ Berikut adalah daftar laporan praktikum per minggu:
 - [📄 Jobsheet 2 - Routing, Controller & View](./PWL-2026/report/week-2/REPORT.md)
 - [📄 Jobsheet 2 - Tugas: Sistem POS Sederhana](./PWL-POS/README.md)
 - [📄 Jobsheet 3 - Migrations](./PWL-POS/report/week-3//REPORT.md)
+- [📄 Jobsheet 4 - Eloquent ORM](./PWL-POS/report/week-4//REPORT.md)
+
 
 ## Requirements
 
