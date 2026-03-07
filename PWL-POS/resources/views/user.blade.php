@@ -128,7 +128,7 @@
 </div>
 
 <div class="table-container">
-    <table border="1" callpadding="2" cellspacing="0">
+    {{-- <table border="1" callpadding="2" cellspacing="0">
         <tr>
             <th>ID</th>
             <th>Username</th>
@@ -140,6 +140,14 @@
             <td><strong>{{ $data->username }}</strong></td>
             <td>{{ $data->nama }}</td>
             <td><span class="badge badge-success">Level {{ $data->level_id }}</span></td>
+        </tr>
+    </table> --}}
+    <table border="1" cellpadding="2" cellspacing="0">
+        <tr>
+            <th>Jumlah Pengguna</th>
+        </tr>
+        <tr>
+            <td>{{ $data }}</td>
         </tr>
     </table>
     {{-- @if($data->count() > 0)
