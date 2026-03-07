@@ -4,152 +4,259 @@
 
 @section('content')
 <style>
-    .dashboard-header {
-        margin-bottom: 2rem;
+    .page-header {
+        margin-bottom: 3rem;
     }
-    .dashboard-header h1 {
-        font-size: 1.875rem;
-        color: #1F2937;
-        font-weight: 600;
+    
+    .page-header h1 {
+        font-size: 2.2rem;
+        color: var(--text-primary);
+        font-weight: 700;
         margin-bottom: 0.5rem;
+        letter-spacing: -0.5px;
     }
-    .dashboard-header p {
-        color: #6B7280;
-        font-size: 0.95rem;
+    
+    .page-header p {
+        color: var(--text-secondary);
+        font-size: 1rem;
     }
+    
+    /* ===== STATS GRID ===== */
     .stats-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 1.5rem;
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
     }
+    
     .stat-card {
-        background: white;
-        padding: 1.5rem;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
         border-radius: 12px;
-        border: 1px solid #E5E7EB;
-        transition: all 0.2s;
+        padding: 1.75rem;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
     }
+    
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    }
+    
+    .stat-card.success::before {
+        background: linear-gradient(90deg, var(--success), #52D890);
+    }
+    
+    .stat-card.warning::before {
+        background: linear-gradient(90deg, var(--warning), #FFB023);
+    }
+    
+    .stat-card.info::before {
+        background: linear-gradient(90deg, var(--info), #1FD9E8);
+    }
+    
     .stat-card:hover {
-        border-color: #FF6B35;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(255,107,53,0.1);
+        border-color: var(--primary);
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-md);
     }
-    .stat-card .stat-icon {
-        width: 48px;
-        height: 48px;
+    
+    .stat-card:hover.success {
+        border-color: var(--success);
+    }
+    
+    .stat-card:hover.warning {
+        border-color: var(--warning);
+    }
+    
+    .stat-card:hover.info {
+        border-color: var(--info);
+    }
+    
+    .stat-content {
+        display: flex;
+        align-items: flex-start;
+        gap: 1.25rem;
+    }
+    
+    .stat-icon {
+        width: 52px;
+        height: 52px;
         border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
+        font-size: 1.75rem;
+        background: var(--bg-hover);
+        flex-shrink: 0;
     }
-    .stat-card.orange .stat-icon {
-        background: rgba(255,107,53,0.1);
-    }
-    .stat-card.blue .stat-icon {
-        background: rgba(59,130,246,0.1);
-    }
-    .stat-card.green .stat-icon {
-        background: rgba(34,197,94,0.1);
-    }
-    .stat-card.purple .stat-icon {
-        background: rgba(168,85,247,0.1);
-    }
-    .stat-card h3 {
-        font-size: 0.875rem;
-        color: #6B7280;
+    
+    .stat-info h3 {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
         font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
         margin-bottom: 0.5rem;
     }
-    .stat-card .stat-value {
-        font-size: 1.875rem;
-        color: #1F2937;
+    
+    .stat-value {
+        font-size: 1.75rem;
+        color: var(--text-primary);
         font-weight: 700;
+        line-height: 1;
+        letter-spacing: -0.3px;
     }
-    .quick-actions {
-        margin-top: 2rem;
+    
+    /* ===== ACTIONS ===== */
+    .actions-section {
+        margin-top: 3rem;
     }
-    .quick-actions h2 {
-        font-size: 1.25rem;
-        color: #1F2937;
-        font-weight: 600;
+    
+    .section-title {
+        font-size: 1.1rem;
+        color: var(--text-primary);
+        font-weight: 700;
         margin-bottom: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 0.95rem;
     }
-    .action-grid {
+    
+    .actions-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 1.5rem;
     }
+    
     .action-card {
-        background: linear-gradient(135deg, #FF6B35 0%, #FF8C61 100%);
         padding: 2rem;
         border-radius: 12px;
         color: white;
         text-decoration: none;
         display: block;
-        transition: all 0.2s;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
     }
-    .action-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(255,107,53,0.3);
+    
+    .action-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.15), transparent);
+        pointer-events: none;
     }
+    
+    .action-card.primary {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        box-shadow: var(--shadow-md);
+    }
+    
     .action-card.secondary {
-        background: linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%);
+        background: linear-gradient(135deg, var(--success) 0%, #52D890 100%);
+        box-shadow: var(--shadow-md);
     }
-    .action-card.secondary:hover {
-        box-shadow: 0 8px 20px rgba(59,130,246,0.3);
+    
+    .action-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-lg);
     }
+    
+    .action-content {
+        position: relative;
+        z-index: 1;
+    }
+    
     .action-card h3 {
-        font-size: 1.25rem;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
+        font-size: 1.2rem;
+        margin-bottom: 0.75rem;
+        font-weight: 700;
+        letter-spacing: -0.2px;
     }
+    
     .action-card p {
-        opacity: 0.9;
+        opacity: 0.95;
         font-size: 0.9rem;
+        line-height: 1.5;
     }
 </style>
 
-<div class="dashboard-header">
+<div class="page-header">
     <h1>Dashboard</h1>
-    <p>Welcome back! Here's what's happening with your store today.</p>
+    <p>Welcome! Here's your store overview</p>
 </div>
 
+<!-- Stats Grid -->
 <div class="stats-grid">
-    <div class="stat-card orange">
-        <div class="stat-icon">📦</div>
-        <h3>Total Products</h3>
-        <div class="stat-value">128</div>
+    <div class="stat-card">
+        <div class="stat-content">
+            <div class="stat-icon">📦</div>
+            <div class="stat-info">
+                <h3>Products</h3>
+                <div class="stat-value">1,234</div>
+            </div>
+        </div>
     </div>
-    <div class="stat-card blue">
-        <div class="stat-icon">💰</div>
-        <h3>Sales Today</h3>
-        <div class="stat-value">45</div>
+    
+    <div class="stat-card success">
+        <div class="stat-content">
+            <div class="stat-icon">💰</div>
+            <div class="stat-info">
+                <h3>Revenue</h3>
+                <div class="stat-value">Rp 125M</div>
+            </div>
+        </div>
     </div>
-    <div class="stat-card green">
-        <div class="stat-icon">💵</div>
-        <h3>Revenue</h3>
-        <div class="stat-value">Rp 2.5M</div>
+    
+    <div class="stat-card warning">
+        <div class="stat-content">
+            <div class="stat-icon">📊</div>
+            <div class="stat-info">
+                <h3>Sales Today</h3>
+                <div class="stat-value">45</div>
+            </div>
+        </div>
     </div>
-    <div class="stat-card purple">
-        <div class="stat-icon">👥</div>
-        <h3>Customers</h3>
-        <div class="stat-value">234</div>
+    
+    <div class="stat-card info">
+        <div class="stat-content">
+            <div class="stat-icon">👥</div>
+            <div class="stat-info">
+                <h3>Customers</h3>
+                <div class="stat-value">892</div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="quick-actions">
-    <h2>Quick Actions</h2>
-    <div class="action-grid">
-        <a href="/sales" class="action-card">
-            <h3>💰 New Transaction</h3>
-            <p>Start a new sales transaction</p>
+<!-- Quick Actions -->
+<div class="actions-section">
+    <h2 class="section-title">Quick Actions</h2>
+    <div class="actions-grid">
+        <a href="/sales" class="action-card primary">
+            <div class="action-content">
+                <h3>💳 New Sale</h3>
+                <p>Create and process a new sales transaction</p>
+            </div>
         </a>
         <a href="/category/food-beverage" class="action-card secondary">
-            <h3>🛍️ Browse Products</h3>
-            <p>View all available products</p>
+            <div class="action-content">
+                <h3>🏪 Products</h3>
+                <p>Manage and view all available products</p>
+            </div>
         </a>
     </div>
 </div>
