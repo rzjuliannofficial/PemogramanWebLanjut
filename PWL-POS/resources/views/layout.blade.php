@@ -330,6 +330,7 @@
             </li>
             <li><a href="/sales" class="{{ request()->is('sales') ? 'active' : '' }}"><span class="icon">💰</span> Transactions</a></li>
             <li><a href="/user/1/name/Admin"><span class="icon">👤</span> Profile</a></li>
+            <li><a href="/user"><span class="icon">👤</span> Data User</a></li>
         </ul>
     </aside>
 
