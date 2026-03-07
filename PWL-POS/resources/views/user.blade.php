@@ -128,7 +128,21 @@
 </div>
 
 <div class="table-container">
-    @if($data->count() > 0)
+    <table border="1" callpadding="2" cellspacing="0">
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Nama</th>
+            <th>ID Level Pengguna</th>
+        </tr>
+        <tr>
+            <td><span class="badge badge-primary">{{ $data->user_id }}</span></td>
+            <td><strong>{{ $data->username }}</strong></td>
+            <td>{{ $data->nama }}</td>
+            <td><span class="badge badge-success">Level {{ $data->level_id }}</span></td>
+        </tr>
+    </table>
+    {{-- @if($data->count() > 0)
         <table class="data-table">
             <thead>
                 <tr>
@@ -154,7 +168,7 @@
             <div class="empty-state-icon">📭</div>
             <p>Tidak ada data pengguna tersedia</p>
         </div>
-    @endif
+    @endif --}}
 </div>
 
 @endsection

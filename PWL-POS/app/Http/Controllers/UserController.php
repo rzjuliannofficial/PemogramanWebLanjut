@@ -10,16 +10,16 @@ class UserController extends Controller
 {
     public function index()
     {
-        $data = [
-            'level_id' => 2,
-            'username' => 'manager_dua',
-            'nama' => 'Manager 2',
-            'password' => Hash::make('12345')
-        ];
-        UserModel::create($data);
+        // $data = [
+        //     'level_id' => 2,
+        //     'username' => 'manager_dua',
+        //     'nama' => 'Manager 2',
+        //     'password' => Hash::make('12345')
+        // ];
+        // UserModel::create($data);
 
         // coba akses model UserModel
-        $user = UserModel::all(); // ambil semua data dari tabel m_user
+        $user = UserModel::where('level_id', 1)->first();
         return view('user', ['data' => $user]);
     }
 
