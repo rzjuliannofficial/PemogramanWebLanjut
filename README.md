@@ -1,46 +1,54 @@
-# PemogramanWebLanjut
+# PWL Laravel - Pemrograman Web Lanjut
 
-Nama : Nabhan Rizqi Julian Saputro
-<br>
-Nim : 2341720255
-<br>
-Kelas : 2F-TI
-<br>
-Prodi : D-IV Teknik Informatika
-<br>
+Repository untuk praktikum mata kuliah Pemrograman Web Lanjut menggunakan Laravel Framework.
 
-> Repository ini berisi source code untuk proyek/materi **Pemrograman Web Lanjut**.  
-  Teknologi utama yang digunakan: **PHP (Laravel)** dan **Blade Template**.
+## Informasi Mahasiswa
 
-## Teknologi
-- PHP (disarankan 8.x)
-- Laravel 12
-- Blade Template
+| Data | Keterangan |
+|------|------------|
+| **NIM** | 2341720255 |
+| **Nama** | Nabhan Rizqi Julian Saputro |
+| **Kelas** | TI-2F |
+
+## Laporan Praktikum
+
+Berikut adalah daftar laporan praktikum per minggu:
+
+- [📄 Jobsheet 1 - Inisialisasi Project Laravel](./PWL-2026/report/week-1/REPORT.md)
+- [📄 Jobsheet 2 - Routing, Controller & View](./PWL-2026/report/week-2/REPORT.md)
+- [📄 Jobsheet 2 - Tugas: Sistem POS Sederhana](./PWL-POS/README.md)
+- [📄 Jobsheet 3 - Migrations](./PWL-POS/report/REPORT.md)
+
+## Requirements
+
+- PHP >= 8.2
 - Composer
-- Node.js & NPM
+- Laravel 11.x
 
----
+## Instalasi
 
-## Struktur Folder (Ringkas)
-- `app/` — logic aplikasi (Controller, Model, dll)
-- `resources/views/` — Blade templates (UI)
-- `routes/` — definisi routing (`web.php`, `api.php`)
-- `database/` — migration, seeder, factory
-- `public/` — entry point & asset publik
+```bash
+# Clone repository
+git clone <repository-url>
 
----
+# Install dependencies
+composer install
 
-## Kontribusi
-Kontribusi dipersilakan. Alur umum:
-1. Fork repo ini
-2. Buat branch fitur: `git checkout -b feature/nama-fitur`
-3. Commit perubahan: `git commit -m "Add: ..."`
-4. Push: `git push origin feature/nama-fitur`
-5. Buat Pull Request
+# Copy environment file
+cp .env.example .env
 
----
+# Generate application key
+php artisan key:generate
 
-## Lisensi
-TODO: Tentukan lisensi proyek ini (misal MIT) atau tuliskan:
+# Run development server
+php artisan serve
+```
 
-Proyek ini dibuat untuk keperluan pembelajaran.
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Gaya Penulisan 
+
+Ter-Inpirasi dari [Atherizz](https://github.com/Atherizz)
+
