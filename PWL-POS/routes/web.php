@@ -26,4 +26,4 @@ Route::get('/user/tambah', [UserController::class, 'tambah']);
 
 Route::post('/user/tambah_simpan', [UserController::class, 'tambah_simpan']);
 
-Route::post('/user/ubah/{id}', [UserController::class, 'ubah']);
+Route::put('/user/ubah_simpan/{id}', [UserController::class, 'ubah_simpan']);
