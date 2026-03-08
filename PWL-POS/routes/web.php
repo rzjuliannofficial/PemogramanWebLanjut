@@ -23,4 +23,7 @@ Route::get('/user/{id}/name/{name}', [UserController::class, 'profile']);
 Route::get('/sales', [SalesController::class, 'index']);
 
 Route::get('/user/tambah', [UserController::class, 'tambah']);
+
 Route::post('/user/tambah_simpan', [UserController::class, 'tambah_simpan']);
+
+Route::post('/user/ubah/{id}', [UserController::class, 'ubah']);

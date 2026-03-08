@@ -34,13 +34,19 @@ class UserController extends Controller
     }
 
     public function tambah_simpan(Request $request)
-{
-    UserModel::create([
-        'username' => $request->username,
-        'nama' => $request->nama,
-        'password' => Hash::make($request->password),
-        'level_id' => $request->level_id
-    ]);
-    return redirect('/user');
-}
+    {
+        UserModel::create([
+            'username' => $request->username,
+            'nama' => $request->nama,
+            'password' => Hash::make($request->password),
+            'level_id' => $request->level_id
+        ]);
+        return redirect('/user');
+    }
+
+    public function ubah($id)
+    {
+        $user = UserModel::find($id);
+        return view('user.user_ubah', ['data' => $user]);
+    }
 }
