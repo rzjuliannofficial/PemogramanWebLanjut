@@ -44,6 +44,12 @@ class UserController extends Controller
         return redirect('/user');
     }
 
+    public function ubah($id)
+    {
+        $user = UserModel::find($id);
+        return view('user.user_ubah', ['data' => $user]);
+    }
+
     public function ubah_simpan(Request $request, $id)
     {
         $user = UserModel::find($id);
