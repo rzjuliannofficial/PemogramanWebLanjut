@@ -20,13 +20,18 @@ class UserController extends Controller
 
         // coba akses model UserModel
         $user = UserModel::firstOrNew(
-            ['username' => 'manager33',
-            'nama' => 'Manager Tiga Tiga', 
+            ['username' => 'manage55',
+            'nama' => 'Manager55', 
             'password' => Hash::make('12345'), 
             'level_id' => 2]
         );
         $user->save();
-        return view('user', ['data' => $user]);
+        // return view('user', ['data' => $user]);
+
+        $user->username = 'manager56';
+        $user->isDirty(); // true
+        $user->isClean(); // false
+        dd($user->isDirty());
     }
 
     public function profile($id, $name)
