@@ -128,31 +128,7 @@
 </div>
 
 <div class="table-container">
-    <table border="1" callpadding="2" cellspacing="0">
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Nama</th>
-            <th>ID Level Pengguna</th>
-        </tr>
-        <tr>
-            <td><span class="badge badge-primary">{{ $data->user_id }}</span></td>
-            <td><strong>{{ $data->username }}</strong></td>
-            <td>{{ $data->nama }}</td>
-            <td><span class="badge badge-success">Level {{ $data->level_id }}</span></td>
-        </tr>
-    </table>
-
-    {{-- <table border="1" cellpadding="2" cellspacing="0">
-        <tr>
-            <th>Jumlah Pengguna</th>
-        </tr>
-        <tr>
-            <td>{{ $data }}</td>
-        </tr>
-    </table> --}}
-
-    {{-- @if($data->count() > 0)
+    @if($data->count() > 0)
         <table class="data-table">
             <thead>
                 <tr>
@@ -169,6 +145,7 @@
                     <td><strong>{{ $d->username }}</strong></td>
                     <td>{{ $d->nama }}</td>
                     <td><span class="badge badge-success">Level {{ $d->level_id }}</span></td>
+                    <td><a href="/user/ubah/{{ $d->user_id }}">Ubah</a> | <a href="/user/hapus/{{ $d->user_id }}">Hapus</a></td>
                 </tr>
                 @endforeach
             </tbody>
@@ -178,7 +155,7 @@
             <div class="empty-state-icon">📭</div>
             <p>Tidak ada data pengguna tersedia</p>
         </div>
-    @endif --}}
+    @endif
 </div>
 
 @endsection

@@ -10,32 +10,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        // $data = [
-        //     'level_id' => 2,
-        //     'username' => 'manager_dua',
-        //     'nama' => 'Manager 2',
-        //     'password' => Hash::make('12345')
-        // ];
-        // UserModel::create($data);
-
-        // coba akses model UserModel
-        $user = UserModel::firstOrNew([
-            'username' => 'manage11',
-            'nama' => 'Manager11', 
-            'password' => Hash::make('12345'), 
-            'level_id' => 2]
-        );
-
-        $user->username = 'manager_12';
-
-        $user->save();
-        // return view('user', ['data' => $user]);
-
-        $user->wasChanged(); // true
-        $user->wasChanged('username'); // true
-        $user->wasChanged(['username','level_id']); // true
-        $user->wasChanged('nama'); // false
-        dd($user->wasChanged(['nama','username']));
+        $user = UserModel::all();
+        return view('user', ['data' => $user]);
     }
 
     public function profile($id, $name)
