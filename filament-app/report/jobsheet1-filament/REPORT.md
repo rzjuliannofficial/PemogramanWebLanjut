@@ -27,11 +27,11 @@
 ## Tampilan
 
 **Tampilan Login**
-![Tampilan Login](img/halamanLogin.png)
+<br>![Tampilan Login](img/halamanLogin.png)
 
 **Tampilan Dashboard Dark**
-![Tampilan Dashboard](img/dashboardDark.png)
+<br>![Tampilan Dashboard](img/dashboardDark.png)
 
 **Tampilan Dashboard Light**
-![Tampilan Dashboard](img/dashboardLight.png)
+<br>![Tampilan Dashboard](img/dashboardLight.png)
 
