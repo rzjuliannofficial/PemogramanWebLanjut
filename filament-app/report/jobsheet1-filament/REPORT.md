@@ -22,13 +22,16 @@
 **4. Apa fungsi Panel Builder?**
 - **Kerangka Utama Dashboard:** Merupakan inti (`filament/filament`) dari sistem admin. Panel Builder bertugas merangkai *Resources* (CRUD data), halaman kustom (*Pages*), dan *Widgets* (grafik) menjadi satu tampilan web administrasi terpadu.
 - **Pengaturan Konfigurasi Multi-Aktor:** Fitur utama dari Panel Builder adalah kemudahan mengatur konfigurasi panel (*Panel Provider*) untuk kelompok yang berbeda, contohnya membentuk satu panel untuk staf admin dan membentuk satu panel berbeda untuk bagian *customer* di dalam *base* Laravel yang sama tanpa bentrokan rute dan sistem autentikasi.
-
+**
 
 ## Tampilan
 
+**Tampilan Login**
 ![Tampilan Login](img/halamanLogin.png)
 
+**Tampilan Dashboard Dark**
 ![Tampilan Dashboard](img/dashboardDark.png)
 
+**Tampilan Dashboard Light**
 ![Tampilan Dashboard](img/dashboardLight.png)
 
