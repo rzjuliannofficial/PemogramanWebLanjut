@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Posts\Schemas;
 
+use Filament\Schemas\Schema;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\ColorPicker;
@@ -15,39 +16,52 @@ use Filament\Schemas\Components\Group;
 
 class PostForm
 {
-    public static function getSchema(): array
+    public static function configure(Schema $schema): Schema
     {
-        return [
-            // Kolom Kiri (Lebar 2/3)
+    return $schema
+        ->components([
             Group::make([
                 Section::make('Post Details')
                     ->description('Fill in the details of the post')
                     ->icon('heroicon-o-document-text')
                     ->schema([
-                        // Membagi input dasar menjadi 2 kolom di dalam section
                         Group::make([
-                            TextInput::make('title'),
-                            TextInput::make('slug'),
+                            // Validasi Title
+                            TextInput::make('title')
+                                ->required()
+                                ->rules(['min:3', 'max:100']), 
+                                
+                            // Validasi Slug dengan Custom Message
+                            TextInput::make('slug')
+                                ->required()
+                                ->unique(ignoreRecord: true) 
+                                ->validationMessages([
+                                    'unique' => 'Slug harus unik.',
+                                ]),
+                                
+                            // Validasi Category
                             Select::make('category_id')
                                 ->relationship('category', 'name')
                                 ->preload()
-                                ->searchable(),
+                                ->searchable()
+                                ->required(), 
+                                
                             ColorPicker::make('color'),
                         ])->columns(2),
                         
-                        // Editor teks mengambil lebar penuh di dalam section
                         MarkdownEditor::make('content')
                             ->columnSpanFull(),
                     ]),
             ])->columnSpan(2),
 
-            // Kolom Kanan (Lebar 1/3)
             Group::make([
                 Section::make('Image Upload')
                     ->schema([
+                        // Validasi Image
                         FileUpload::make('image')
                             ->disk('public')
-                            ->directory('posts'),
+                            ->directory('posts')
+                            ->required(), 
                     ]),
                     
                 Section::make('Meta Information')
@@ -57,6 +71,7 @@ class PostForm
                         DateTimePicker::make('published_at'),
                     ]),
             ])->columnSpan(1),
-        ];
+        ])
+        ->columns(3);
     }
 }
