@@ -32,3 +32,14 @@ Tanpa ini, akan terjadi error tipe data.
 - Menyimpannya sebagai teks murni tanpa tag HTML
 
 Pilihan bergantung pada bagaimana Anda ingin me-render data tersebut di front-end nanti.
+
+## Tampilan
+
+**Tampilan CRUD**
+<br>![Tampilan Create](img/Create_Post.png)
+
+<br>![Tampilan Create](img/Edit_Post.png)
+
+
+**Tampilan List**
+<br>![Tampilan List](img/List.png)

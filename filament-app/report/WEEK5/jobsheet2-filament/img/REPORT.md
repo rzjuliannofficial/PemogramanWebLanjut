@@ -34,7 +34,7 @@ Oleh karena mekanisme internal Laravel dan Filament ini, kita tidak perlu memiki
 ## Tampilan
 
 **Tampilan CRUD**
-<br>![Tampilan CRUD](TampilanCRUD.png)
+<br>![Tampilan CRUD](img/TampilanCRUD.png)
 
 **Tampilan User**
-<br>![Tampilan User](TampilanUser.png)
+<br>![Tampilan User](img/TampilanUser.png)
