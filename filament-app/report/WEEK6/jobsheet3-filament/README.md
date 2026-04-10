@@ -32,3 +32,5 @@ Filament sangat mengerti konteks Eloquent Laravel. Saat kamu menyimpan data edit
 Array jauh lebih rapi dan aman dari kesalahan pemotongan (parsing).
 
 ## Tampilan
+**Tampilan CRUD Update**
+<br>![Tampilan Create](img/Create_Update.png)
