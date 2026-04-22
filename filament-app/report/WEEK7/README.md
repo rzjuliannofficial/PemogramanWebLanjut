@@ -282,11 +282,11 @@ Fungsi skippable() digunakan ketika sebuah tahapan (step) dalam wizard memuat in
 **Tidak.** Wizard form sangat buruk jika digunakan untuk form yang sederhana dan pendek (seperti form Login, form Contact Us, atau input yang hanya butuh 2-3 kolom). Memaksa form pendek menjadi wizard hanya akan membuang waktu pengguna karena harus melakukan klik tambahan secara sia-sia. Wizard hanya cocok untuk entitas data kompleks yang membutuhkan kategorisasi masif.
 
 ---
-*Selesai.*
-
 
 # LAPORAN PRAKTIKUM PEMROGRAMAN WEB LANJUT
 ## Jobsheet 8 - Implementasi Info List (View Page) di Filament
+
+---
 
 ### A. Studi Kasus
 
@@ -921,4 +921,3 @@ Info List memberikan pengalaman user yang jauh lebih baik dibanding form input k
 
 ---
 
-*End of Report*
