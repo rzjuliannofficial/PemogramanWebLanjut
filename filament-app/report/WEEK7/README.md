@@ -923,3 +923,638 @@ Info List memberikan pengalaman user yang jauh lebih baik dibanding form input k
 
 ---
 
+---
+
+# LAPORAN PRAKTIKUM PEMROGRAMAN WEB LANJUT
+## Jobsheet 9 - Implementasi Tabs pada Info List di Filament
+
+### A. Studi Kasus
+
+Pada Jobsheet sebelumnya (Jobsheet 8), kami telah menggunakan Info List dengan Section untuk menampilkan detail Product. Namun jika data cukup banyak, pengguna harus scroll panjang ke bawah untuk melihat semua informasi.
+
+Solusi yang lebih baik adalah menggunakan **Tabs** agar informasi dibagi menjadi beberapa kategori dan dapat diakses dengan klik. Dengan pendekatan ini, halaman View menjadi lebih ringkas, interaktif, dan user-friendly.
+
+**Contoh pembagian Tabs:**
+- **Tab 1:** Product Info (nama, SKU, deskripsi)
+- **Tab 2:** Pricing & Stock (harga, stok, badge dinamis)
+- **Tab 3:** Media & Status (gambar, status aktif, featured)
+
+---
+
+### B. Capaian Pembelajaran
+
+Setelah mengikuti praktikum ini, mahasiswa mampu:
+1. Menggunakan komponen Tabs pada Info List
+2. Mengelompokkan informasi detail ke dalam beberapa tab
+3. Menambahkan icon dan badge pada tab
+4. Implementasi badge dinamis berdasarkan data
+5. Mengubah orientasi tab (horizontal & vertical)
+6. Mendesain halaman View agar lebih ringkas dan user-friendly
+
+---
+
+### C. Konsep Tabs di Info List
+
+**Pengertian Tabs:**
+Tabs adalah komponen UI yang membagi informasi ke dalam beberapa halaman kecil yang dapat diakses dengan klik pada tab header. Setiap tab menampilkan konten yang berbeda tanpa harus scroll panjang.
+
+**Kapan menggunakan Tabs:**
+- Informasi detail yang sangat banyak
+- Mengelompokkan data ke dalam kategori logis
+- Mengurangi cognitive load pengguna
+- Membuat UI lebih professional dan interactive
+
+**Perbandingan Section vs Tabs:**
+
+| Section | Tabs |
+|---------|------|
+| Semua tampil sekaligus | Tersembunyi sampai diklik |
+| Scroll panjang | Navigasi klik |
+| Kurang interaktif | Lebih interaktif |
+| Cocok untuk data sedikit | Cocok untuk data banyak |
+
+---
+
+### D. Implementasi Tabs di ProductInfolist
+
+#### 1. Struktur Dasar Tabs
+
+```php
+Tabs::make('Product Tabs')
+    ->tabs([
+        Tabs\Tab::make('Tab Name')
+            ->icon('heroicon-xxxx')
+            ->schema([
+                // Komponen di dalam tab
+            ]),
+        // Tab lainnya...
+    ])
+    ->columnSpanFull()
+```
+
+#### 2. File yang Diupdate
+
+**File:** `app/Filament/Resources/Products/Schemas/ProductInfolist.php`
+
+```php
+<?php
+
+namespace App\Filament\Resources\Products\Schemas;
+
+use Filament\Schemas\Schema;
+use Filament\Infolists\Components\Tabs;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\IconEntry;
+
+class ProductInfolist
+{
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                Tabs::make('Product Tabs')
+                    ->tabs([
+                        // Tab 1: Product Info
+                        Tabs\Tab::make('Product Info')
+                            ->icon('heroicon-o-information-circle')
+                            ->schema([
+                                TextEntry::make('id')
+                                    ->label('Product ID'),
+                                TextEntry::make('name')
+                                    ->label('Product Name')
+                                    ->weight('bold')
+                                    ->color('primary'),
+                                TextEntry::make('sku')
+                                    ->label('Product SKU')
+                                    ->badge()
+                                    ->color('success'),
+                                TextEntry::make('description')
+                                    ->label('Product Description')
+                                    ->columnSpanFull(),
+                            ])
+                            ->columnSpanFull(),
+
+                        // Tab 2: Pricing & Stock
+                        Tabs\Tab::make('Pricing & Stock')
+                            ->icon('heroicon-o-currency-dollar')
+                            ->badge(fn ($record) => $record->stock)
+                            ->badgeColor(fn ($record) => $record->stock > 10 ? 'success' : ($record->stock > 0 ? 'warning' : 'danger'))
+                            ->schema([
+                                TextEntry::make('price')
+                                    ->label('Product Price')
+                                    ->icon('heroicon-o-currency-dollar')
+                                    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 0, ',', '.')),
+                                TextEntry::make('stock')
+                                    ->label('Product Stock')
+                                    ->icon('heroicon-o-cube')
+                                    ->color(fn ($state) => $state > 10 ? 'success' : ($state > 0 ? 'warning' : 'danger')),
+                            ])
+                            ->columns(2),
+
+                        // Tab 3: Media & Status
+                        Tabs\Tab::make('Media & Status')
+                            ->icon('heroicon-o-photo')
+                            ->schema([
+                                ImageEntry::make('image')
+                                    ->label('Product Image')
+                                    ->disk('public')
+                                    ->columnSpanFull(),
+                                IconEntry::make('is_active')
+                                    ->label('Active Status')
+                                    ->boolean(),
+                                IconEntry::make('is_featured')
+                                    ->label('Featured')
+                                    ->boolean(),
+                                TextEntry::make('created_at')
+                                    ->label('Created Date')
+                                    ->dateTime('d M Y, H:i')
+                                    ->color('info'),
+                            ])
+                            ->columns(2),
+                    ])
+                    ->columnSpanFull(),
+            ]);
+    }
+
+    /**
+     * Variasi: Implementasi dengan Tabs Vertical
+     * Uncomment method ini jika ingin menggunakan Tabs Vertical
+     */
+    public static function configureVertical(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                Tabs::make('Product Tabs')
+                    ->vertical()
+                    ->tabs([
+                        // Tab 1-3 sama seperti di atas, hanya ditambahin ->vertical()
+                    ])
+                    ->columnSpanFull(),
+            ]);
+    }
+}
+```
+
+---
+
+### E. Penjelasan Komponen Tabs
+
+#### 1. Tabs - Container
+```php
+Tabs::make('Product Tabs')
+```
+- `make()` membuat instance Tabs dengan identifier unik
+- Nama ini untuk keperluan internal Vue.js
+
+#### 2. Tabs\Tab - Individual Tab
+```php
+Tabs\Tab::make('Product Info')
+```
+- Membuat satu tab dengan nama "Product Info"
+- Nama ini akan ditampilkan di tab header
+
+#### 3. icon() - Icon di Tab Header
+```php
+->icon('heroicon-o-information-circle')
+```
+- Menambahkan icon di sebelah kiri nama tab
+- Membuat recognizer lebih mudah
+- Icon menggunakan Heroicons library
+
+#### 4. badge() - Badge di Tab Header
+```php
+->badge(fn ($record) => $record->stock)
+->badgeColor(fn ($record) => $record->stock > 10 ? 'success' : ...)
+```
+- Menampilkan angka di tab header
+- Contoh: "Pricing & Stock [5]" jika stock = 5
+- **Jawaban Latihan K.1:** Badge dinamis berdasarkan stock
+
+#### 5. badgeColor() - Warna Badge Dinamis
+```php
+->badgeColor(fn ($record) => 
+    $record->stock > 10 ? 'success' : 
+    ($record->stock > 0 ? 'warning' : 'danger')
+)
+```
+- **Jawaban Latihan K.2:** Warna badge berbeda
+- `success` (hijau) jika stock > 10
+- `warning` (kuning) jika stock 1-10
+- `danger` (merah) jika stock 0
+
+#### 6. schema() - Konten Tab
+```php
+->schema([
+    TextEntry::make('name'),
+    // Komponen lainnya...
+])
+```
+- Mendefinisikan komponen yang ditampilkan di dalam tab
+- Sama seperti schema pada Section atau Form
+
+#### 7. columnSpanFull() - Full Width
+```php
+->columnSpanFull()
+```
+- Membuat tab/konten menjangkau seluruh lebar
+- Penting untuk layout responsif
+
+#### 8. vertical() - Orientasi Vertical
+```php
+Tabs::make('Product Tabs')
+    ->vertical()
+```
+- **Jawaban Latihan K.3:** Mengubah orientasi ke vertical
+- Tab header akan ditampilkan di sebelah kiri
+- Konten akan ditampilkan di sebelah kanan
+
+---
+
+### F. Fitur Tab yang Tersedia
+
+| Method | Fungsi |
+|--------|--------|
+| `icon()` | Menambahkan icon pada tab |
+| `badge()` | Menambahkan badge dengan angka |
+| `badgeColor()` | Mengubah warna badge |
+| `schema()` | Mendefinisikan konten tab |
+| `columnSpanFull()` | Full width layout |
+| `vertical()` | Ubah orientasi ke vertical |
+| `lazyLoad()` | Load tab content hanya saat diklik |
+| `persistTabInQueryString()` | Simpan active tab di URL |
+
+---
+
+### G. Dynamic Badge Implementation
+
+**Kode untuk Dynamic Badge:**
+
+```php
+// Badge dengan nilai dinamis (jumlah stok)
+Tabs\Tab::make('Pricing & Stock')
+    ->badge(fn ($record) => $record->stock)  // Menampilkan nilai stock
+    ->badgeColor(fn ($record) => 
+        $record->stock > 10 ? 'success' :      // Hijau jika > 10
+        ($record->stock > 0 ? 'warning' :      // Kuning jika 1-10
+        'danger')                               // Merah jika 0
+    )
+```
+
+**Logika Warna:**
+- 🟢 **Success (Hijau):** Stock > 10 (Stok melimpah)
+- 🟡 **Warning (Kuning):** Stock 1-10 (Stok menipis)
+- 🔴 **Danger (Merah):** Stock 0 (Stok habis)
+
+**Contoh Tampilan:**
+- Produk A (Stok 50): `Pricing & Stock [50]` dengan badge hijau
+- Produk B (Stok 5): `Pricing & Stock [5]` dengan badge kuning
+- Produk C (Stok 0): `Pricing & Stock [0]` dengan badge merah
+
+---
+
+### H. Icon di Setiap Tab
+
+**Jawaban Latihan K.4:** Icon berbeda pada setiap tab
+
+```php
+// Tab 1: Product Info
+->icon('heroicon-o-information-circle')
+
+// Tab 2: Pricing & Stock
+->icon('heroicon-o-currency-dollar')
+
+// Tab 3: Media & Status
+->icon('heroicon-o-photo')
+```
+
+**List Icon Heroicons yang sering digunakan:**
+- `heroicon-o-information-circle` - Info icon
+- `heroicon-o-currency-dollar` - Dolar currency
+- `heroicon-o-photo` - Foto/image
+- `heroicon-o-cube` - Box/stock
+- `heroicon-o-check-circle` - Success
+- `heroicon-o-x-circle` - Error
+- `heroicon-o-exclamation-circle` - Warning
+
+---
+
+### I. Horizontal vs Vertical Tabs
+
+#### Horizontal Tabs (Default)
+```php
+Tabs::make('Product Tabs')
+    ->tabs([...])
+```
+
+**Karakteristik:**
+- Tab header di atas (horizontal)
+- Konten di bawah
+- Layout kompak
+- Cocok untuk 2-5 tabs
+- Responsive di desktop
+
+```
+┌─────────────────────────────┐
+│ [Tab1] [Tab2] [Tab3]        │  ← Tab headers (horizontal)
+├─────────────────────────────┤
+│ Konten tab 1                │  ← Tab content
+│ ...                         │
+└─────────────────────────────┘
+```
+
+#### Vertical Tabs
+```php
+Tabs::make('Product Tabs')
+    ->vertical()
+    ->tabs([...])
+```
+
+**Karakteristik:**
+- Tab header di kiri (vertical)
+- Konten di kanan
+- Lebih banyak space
+- Cocok untuk banyak tabs
+- Lebih readable
+
+```
+┌─────────┬──────────────────┐
+│ Tab1  │ Konten tab 1     │
+│ Tab2  │ ...              │
+│ Tab3  │                  │
+│──────│                  │
+└─────────┴──────────────────┘
+```
+
+---
+
+### J. Perbandingan Sebelum & Sesudah
+
+#### Sebelum (Week 8 - Section)
+```
+Section Product Info
+├─ Product Name: Laptop Gaming Pro
+├─ Product ID: 1
+├─ Product SKU: LAP-001
+└─ Product Description: Laptop gaming...
+
+Section Pricing & Stock
+├─ Product Price: Rp 15.000.000
+└─ Product Stock: 5
+
+Section Media & Status
+├─ Product Image: [Gambar]
+├─ Is Active: ✓
+├─ Is Featured: ✓
+└─ Created Date: 22 Apr 2026, 10:30
+```
+**Problem:** User harus scroll banyak untuk melihat semua
+
+#### Sesudah (Week 9 - Tabs)
+```
+[Product Info] [Pricing & Stock] [Media & Status]
+
+Saat klik "Pricing & Stock":
+├─ Product Price: Rp 15.000.000
+├─ Product Stock: 5 (dengan warna warning)
+└─ Badge di header: [5]
+```
+**Solusi:** Compact view, user pilih tab yang ingin dilihat
+
+---
+
+### K. Jawaban Latihan Praktikum
+
+#### ✅ Latihan K.1: Badge Dinamis Berdasarkan Stok
+```php
+Tabs\Tab::make('Pricing & Stock')
+    ->badge(fn ($record) => $record->stock)
+```
+Menampilkan jumlah stok sebagai badge di header tab.
+
+#### ✅ Latihan K.2: Warna Badge Berbeda
+```php
+->badgeColor(fn ($record) => 
+    $record->stock > 10 ? 'success' : 
+    ($record->stock > 0 ? 'warning' : 'danger')
+)
+```
+- Stock > 10: Hijau (success)
+- Stock 1-10: Kuning (warning)
+- Stock 0: Merah (danger)
+
+#### ✅ Latihan K.3: Ubah Ke Vertical
+```php
+Tabs::make('Product Tabs')
+    ->vertical()
+    ->tabs([...])
+```
+Menambahkan `->vertical()` sebelum tabs.
+
+#### ✅ Latihan K.4: Icon Berbeda Tiap Tab
+```php
+Tabs\Tab::make('Product Info')->icon('heroicon-o-information-circle')
+Tabs\Tab::make('Pricing & Stock')->icon('heroicon-o-currency-dollar')
+Tabs\Tab::make('Media & Status')->icon('heroicon-o-photo')
+```
+
+---
+
+### L. Analisis & Diskusi
+
+#### 1. Kapan kita menggunakan Tabs dibanding Section?
+
+**Jawaban:**
+- **Gunakan Section ketika:**
+  - Data sedikit (2-3 kelompok)
+  - Semua informasi perlu terlihat sekaligus
+  - User tidak perlu membuat keputusan tentang informasi mana yang perlu dilihat
+  - Page tidak terlalu panjang
+
+- **Gunakan Tabs ketika:**
+  - Data banyak (4+ kelompok)
+  - Informasi dapat dikelompokkan ke dalam kategori jelas
+  - Halaman akan terlalu panjang dengan Section
+  - Ingin membuat UI lebih interactive dan professional
+
+**Contoh:**
+- Section: Product list dengan hanya 2-3 kolom
+- Tabs: Product detail dengan 15+ field data
+
+#### 2. Apa kelebihan Tabs untuk data panjang?
+
+**Jawaban:**
+1. **Reduce Cognitive Load**: User fokus pada satu kategori data saja
+2. **Cleaner Interface**: UI tidak penuh sesak, lebih rapi dan profesional
+3. **Better Organization**: Data terkelompok secara logis dan mudah ditemukan
+4. **Faster Navigation**: Klik tab lebih cepat daripada scroll panjang
+5. **Mobile Friendly**: Pada mobile, horizontal scroll tab lebih mudah daripada vertical scroll panjang
+6. **Progressive Disclosure**: Hanya tampilkan informasi yang relevan dengan konteks
+
+#### 3. Apakah Tabs bisa digunakan pada Form juga?
+
+**Jawaban:**
+**YA**, Tabs bisa digunakan pada Form di Filament. Implementasinya sama seperti pada Info List, cukup gunakan `Tabs` di dalam `Schema` pada method `form()`.
+
+**Contoh di Form:**
+```php
+public static function form(Schema $schema): Schema
+{
+    return ProductForm::configure($schema);
+}
+```
+
+Update ProductForm.php:
+```php
+Tabs::make('Product Wizard')
+    ->tabs([
+        Tabs\Tab::make('Basic Info')->schema([...]),
+        Tabs\Tab::make('Pricing')->schema([...]),
+        Tabs\Tab::make('Media')->schema([...]),
+    ])
+```
+
+**Use case:** Form dengan banyak field, lebih dari 20 field menjadi kurang user-friendly jika ditampilkan sekaligus.
+
+#### 4. Bagaimana jika tab terlalu banyak?
+
+**Jawaban:**
+Jika tab lebih dari 5-6, ada beberapa solusi:
+
+1. **Buatlah sub-grouping:**
+   - Bukan 10 tab terpisah, tapi 3 tab utama dengan section di dalamnya
+   - Contoh: "Basic", "Details", "Advanced"
+
+2. **Gunakan lazy loading:**
+   ```php
+   ->lazyLoad()
+   ```
+   - Tab content hanya di-load saat diklik
+   - Mengurangi memory usage
+
+3. **Split ke halaman berbeda:**
+   - Jangan paksa semua di satu page
+   - Buat multiple pages/resources
+   - Contoh: Product basic, Product pricing, Product media
+
+4. **Gunakan accordion:**
+   - Alternatif lain jika Tabs terlalu banyak
+   - Lebih space-efficient untuk banyak item
+
+5. **Evaluasi user need:**
+   - Apakah user benar-benar butuh melihat semua data?
+   - Mungkin ada data yang tidak perlu ditampilkan
+
+---
+
+### M. Implementasi di ViewProduct Page
+
+**File:** `app/Filament/Resources/Products/Pages/ViewProduct.php`
+
+Tidak perlu ada perubahan di ViewProduct page, karena sudah otomatis menggunakan:
+
+```php
+public static function infolist(Schema $schema): Schema
+{
+    return ProductInfolist::configure($schema);
+}
+```
+
+Yang sekarang menggunakan Tabs di dalamnya.
+
+---
+
+### N. Ringkasan Implementasi Week 9
+
+Fitur yang telah diimplementasikan:
+
+✅ **Mengganti Section menjadi Tabs**
+- ProductInfolist.php diupdate untuk menggunakan Tabs
+
+✅ **Membuat 3 Tab berbeda**
+- Tab 1: Product Info
+- Tab 2: Pricing & Stock
+- Tab 3: Media & Status
+
+✅ **Menambahkan icon pada Tab**
+- Information circle, currency dollar, photo
+
+✅ **Menambahkan badge**
+- Badge dinamis berdasarkan jumlah stok
+
+✅ **Mengubah orientasi ke vertical**
+- Method configureVertical() tersedia untuk digunakan
+
+✅ **Warna badge dinamis**
+- Success (hijau) jika stock > 10
+- Warning (kuning) jika stock 1-10
+- Danger (merah) jika stock 0
+
+---
+
+### O. Fitur Tambahan
+
+#### Lazy Load (Optional)
+```php
+Tabs::make('Product Tabs')
+    ->lazyLoad()
+    ->tabs([...])
+```
+Tab content hanya dimuat saat tab diklik.
+
+#### Persist Tab in Query String (Optional)
+```php
+Tabs::make('Product Tabs')
+    ->persistTabInQueryString()
+    ->tabs([...])
+```
+URL akan berubah saat tab aktif berubah, misalnya: `?tab=Pricing%20%26%20Stock`
+
+---
+
+### P. Kesimpulan Week 9
+
+Pada Jobsheet 9 ini, kami telah berhasil:
+
+1. **Memahami Tabs component** - Cara kerja dan use case
+2. **Mengimplementasikan Tabs di Info List** - Mengganti Section
+3. **Dynamic badge** - Badge berubah warna berdasarkan data
+4. **Icon management** - Icon konsisten untuk setiap tab
+5. **Layout flexibility** - Horizontal dan vertical orientation
+6. **Better UX** - Interface lebih ringkas dan interactive
+
+**Perbedaan konsep:**
+- **Week 7**: Wizard Form - Untuk input multi-step
+- **Week 8**: Info List - Untuk menampilkan data dengan Section
+- **Week 9**: Tabs - Untuk menampilkan data dengan navigasi tab
+
+Dengan implementasi Tabs, halaman View Product menjadi lebih professional, interactive, dan user-friendly. User tidak perlu scroll panjang lagi, cukup klik tab yang ingin dilihat.
+
+---
+
+**Status Implementasi:** ✅ SELESAI
+
+**Tanggal:** 22 April 2026
+
+**File yang dibuat/dimodifikasi:**
+- ✅ `app/Filament/Resources/Products/Schemas/ProductInfolist.php` (Updated)
+
+**Metode yang tersedia:**
+- ✅ `configure()` - Tabs Horizontal (default)
+- ✅ `configureVertical()` - Tabs Vertical (opsional)
+
+---
+
+**Perjalanan Learning Path:**
+```
+Week 7: Wizard Form (Multi-Step Form Input)
+    ↓
+Week 8: Info List (Display Read-Only)
+    ↓
+Week 9: Tabs (Organized Display with Navigation)
+    ↓
+Next: Advanced Features atau Relations
+```
+
+---
+
