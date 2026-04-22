@@ -1,5 +1,5 @@
 ﻿# LAPORAN PRAKTIKUM PEMROGRAMAN WEB LANJUT
-## Pertemuan 7 - Implementasi Wizard Form (Multi Step Form) di Filament
+## Jobsheet 7 - Implementasi Wizard Form (Multi Step Form) di Filament
 
 ### A. Studi Kasus
 
@@ -283,3 +283,642 @@ Fungsi skippable() digunakan ketika sebuah tahapan (step) dalam wizard memuat in
 
 ---
 *Selesai.*
+
+
+# LAPORAN PRAKTIKUM PEMROGRAMAN WEB LANJUT
+## Jobsheet 8 - Implementasi Info List (View Page) di Filament
+
+### A. Studi Kasus
+
+Pada Jobsheet sebelumnya (Jobsheet 7), kami telah mengimplementasikan Wizard Form (Multi Step Form) untuk input data produk. Namun, ketika pengguna mengklik tombol "View" untuk melihat detail produk, halaman masih menampilkan form input yang tidak sesuai untuk tampilan informasi read-only.
+
+Solusi yang tepat adalah menggunakan **Info List** untuk menampilkan data produk dalam bentuk display informasi yang profesional dan lebih rapi. Jobsheet ini bertujuan untuk meningkatkan tampilan halaman detail produk dengan menggunakan komponen-komponen Info List seperti TextEntry, ImageEntry, dan IconEntry.
+
+---
+
+### B. Capaian Pembelajaran
+
+Setelah mengikuti praktikum ini, mahasiswa mampu:
+1. Memahami konsep Info List pada Filament
+2. Mengubah tampilan View Page dari form menjadi display informasi
+3. Menggunakan TextEntry, ImageEntry, dan IconEntry
+4. Menggunakan Badge, Color, Icon, dan Format Date
+5. Mendesain halaman detail (show page) yang lebih profesional
+
+---
+
+### C. Konsep Info List
+
+**Pengertian Info List:**
+Info List adalah komponen di Filament yang digunakan untuk menampilkan data detail record dalam bentuk informasi read-only (tidak dapat diedit). Ini berbeda dengan Form yang memungkinkan pengguna untuk mengedit data.
+
+**Kapan menggunakan Info List:**
+- Menampilkan data detail record
+- Mengganti tampilan input form menjadi display-only pada halaman View
+- Membuat halaman detail produk/kategori yang profesional
+- Menampilkan informasi historis atau data yang tidak boleh diubah
+
+**Perbandingan Komponen:**
+
+| Form | Table | Info List |
+|------|-------|-----------|
+| TextInput | TextColumn | TextEntry |
+| FileUpload | ImageColumn | ImageEntry |
+| Checkbox | IconColumn | IconEntry |
+| Editable | Sortable | Read-only |
+
+---
+
+### D. Langkah-Langkah Implementasi
+
+#### 1. File Structure
+
+Struktur file yang digunakan dalam implementasi:
+```
+app/
+  Filament/
+    Resources/
+      Products/
+        ProductResource.php
+        Schemas/
+          ProductForm.php (dari Week 7)
+          ProductInfolist.php (BARU)
+        Pages/
+          ViewProduct.php
+          ListProducts.php
+          CreateProduct.php
+          EditProduct.php
+        Tables/
+          ProductsTable.php
+  Models/
+    Product.php
+database/
+  factories/
+    ProductFactory.php (BARU)
+  seeders/
+    ProductSeeder.php (BARU)
+    DatabaseSeeder.php (Updated)
+```
+
+#### 2. Membuat ProductInfolist
+
+**File:** `app/Filament/Resources/Products/Schemas/ProductInfolist.php`
+
+```php
+<?php
+
+namespace App\Filament\Resources\Products\Schemas;
+
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\IconEntry;
+
+class ProductInfolist
+{
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                // Section 1: Product Info
+                Section::make('Product Info')
+                    ->schema([
+                        TextEntry::make('name')
+                            ->label('Product Name')
+                            ->weight('bold')
+                            ->color('primary'),
+                        TextEntry::make('id')
+                            ->label('Product ID'),
+                        TextEntry::make('sku')
+                            ->label('Product SKU')
+                            ->badge()
+                            ->color('success'),
+                        TextEntry::make('description')
+                            ->label('Product Description'),
+                    ])
+                    ->columnSpanFull(),
+
+                // Section 2: Pricing & Stock
+                Section::make('Pricing & Stock')
+                    ->schema([
+                        TextEntry::make('price')
+                            ->label('Product Price')
+                            ->icon('heroicon-o-currency-dollar')
+                            ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 0, ',', '.')),
+                        TextEntry::make('stock')
+                            ->label('Product Stock')
+                            ->icon('heroicon-o-cube'),
+                    ])
+                    ->columns(2),
+
+                // Section 3: Media & Status
+                Section::make('Media & Status')
+                    ->schema([
+                        ImageEntry::make('image')
+                            ->label('Product Image')
+                            ->disk('public'),
+                        IconEntry::make('is_active')
+                            ->label('Is Active')
+                            ->boolean(),
+                        IconEntry::make('is_featured')
+                            ->label('Is Featured')
+                            ->boolean(),
+                        TextEntry::make('created_at')
+                            ->label('Product Creation Date')
+                            ->dateTime('d M Y, H:i')
+                            ->color('info'),
+                    ])
+                    ->columns(2),
+            ]);
+    }
+}
+```
+
+**Penjelasan Komponen:**
+
+**a) Section - Pengelompokan Data**
+```php
+Section::make('Product Info')
+    ->schema([...])
+    ->columnSpanFull()
+```
+- Section digunakan untuk mengelompokkan data secara logis
+- `columnSpanFull()` membuat section menjangkau seluruh lebar tersedia
+
+**b) TextEntry - Menampilkan Teks**
+```php
+TextEntry::make('name')
+    ->label('Product Name')
+    ->weight('bold')  // Teks tebal
+    ->color('primary')  // Warna biru
+```
+- `weight('bold')` membuat teks menjadi tebal
+- `color('primary')` memberikan warna primer pada teks
+- Properti lainnya: `secondary`, `success`, `danger`, `warning`, `info`
+
+**c) Badge - Format Badge**
+```php
+TextEntry::make('sku')
+    ->label('Product SKU')
+    ->badge()  // Tampilkan sebagai badge
+    ->color('success')  // Warna hijau
+```
+- `badge()` menampilkan nilai dalam bentuk badge
+- Rapi dan mudah dibaca
+
+**d) Icon - Menambahkan Icon**
+```php
+TextEntry::make('price')
+    ->icon('heroicon-o-currency-dollar')
+```
+- `icon()` menambahkan icon membantu pengguna memahami data
+- Icon menggunakan Heroicons library
+
+**e) formatStateUsing - Format Custom**
+```php
+->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 0, ',', '.'))
+```
+- Memformat harga menjadi format Rupiah dengan separator ribuan
+- Contoh: 15000000 menjadi "Rp 15.000.000"
+
+**f) ImageEntry - Menampilkan Gambar**
+```php
+ImageEntry::make('image')
+    ->label('Product Image')
+    ->disk('public')
+```
+- Menampilkan gambar dari disk 'public'
+- Ukuran gambar akan disesuaikan otomatis
+
+**g) IconEntry - Boolean Icon**
+```php
+IconEntry::make('is_active')
+    ->boolean()
+```
+- Menampilkan icon check (✓) jika value true
+- Menampilkan icon silang (✗) jika value false
+
+**h) dateTime - Format Tanggal**
+```php
+TextEntry::make('created_at')
+    ->dateTime('d M Y, H:i')
+```
+- Format: "16 Apr 2026, 10:30"
+- Format lain: `date('d M Y')`, `time('H:i')`
+
+#### 3. Mengintegrasikan Info List ke ProductResource
+
+**File:** `app/Filament/Resources/Products/ProductResource.php`
+
+ProductResource sudah dikonfigurasi untuk menggunakan ProductInfolist:
+```php
+public static function infolist(Schema $schema): Schema
+{
+    return ProductInfolist::configure($schema);
+}
+```
+
+#### 4. ViewProduct Page (Sudah Dikonfigurasi)
+
+**File:** `app/Filament/Resources/Products/Pages/ViewProduct.php`
+
+```php
+<?php
+
+namespace App\Filament\Resources\Products\Pages;
+
+use App\Filament\Resources\Products\ProductResource;
+use Filament\Actions\EditAction;
+use Filament\Resources\Pages\ViewRecord;
+
+class ViewProduct extends ViewRecord
+{
+    protected static string $resource = ProductResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            EditAction::make(),
+        ];
+    }
+}
+```
+
+Halaman ini otomatis akan menampilkan Info List yang telah dikonfigurasi di ProductResource.
+
+---
+
+### E. Membuat Data Uji Coba
+
+#### 1. ProductFactory
+
+**File:** `database/factories/ProductFactory.php`
+
+```php
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Product;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends Factory<Product>
+ */
+class ProductFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'name' => fake()->words(3, true),
+            'sku' => fake()->unique()->bothify('SKU-####??'),
+            'description' => fake()->paragraph(3),
+            'price' => fake()->numberBetween(10000, 500000),
+            'stock' => fake()->numberBetween(1, 100),
+            'image' => null,
+            'is_active' => true,
+            'is_featured' => fake()->boolean(30),
+        ];
+    }
+}
+```
+
+#### 2. ProductSeeder
+
+**File:** `database/seeders/ProductSeeder.php`
+
+```php
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Product;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class ProductSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        // Seed 5 produk random
+        Product::factory(5)->create();
+
+        // Seed 2 produk dengan data spesifik
+        Product::create([
+            'name' => 'Laptop Gaming Pro',
+            'sku' => 'LAP-001',
+            'description' => 'Laptop gaming dengan spesifikasi tinggi, prosesor Intel i7, RAM 16GB, SSD 512GB, GPU RTX 3060 Ti',
+            'price' => 15000000,
+            'stock' => 5,
+            'image' => null,
+            'is_active' => true,
+            'is_featured' => true,
+        ]);
+
+        Product::create([
+            'name' => 'Mouse Gaming RGB',
+            'sku' => 'MOU-001',
+            'description' => 'Mouse gaming dengan lighting RGB programmable, DPI 12800, 8 tombol yang dapat diprogram',
+            'price' => 350000,
+            'stock' => 25,
+            'image' => null,
+            'is_active' => true,
+            'is_featured' => false,
+        ]);
+    }
+}
+```
+
+#### 3. Update DatabaseSeeder
+
+**File:** `database/seeders/DatabaseSeeder.php`
+
+```php
+public function run(): void
+{
+    User::factory()->create([
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+    ]);
+
+    // Seed products
+    $this->call(ProductSeeder::class);
+}
+```
+
+#### 4. Menjalankan Migrations dan Seeders
+
+```bash
+php artisan migrate --seed
+```
+
+Atau jika sudah ada data sebelumnya:
+```bash
+php artisan migrate:refresh --seed
+```
+
+---
+
+### F. Hasil Tampilan Info List
+
+#### Section 1: Product Info
+- **Product Name**: Menampilkan nama produk dengan format bold dan warna primary (biru)
+- **Product ID**: ID unik produk
+- **Product SKU**: Stock Keeping Unit dalam format badge hijau
+- **Product Description**: Deskripsi lengkap produk
+
+#### Section 2: Pricing & Stock
+- **Product Price**: Harga dalam format Rp dengan icon dolar
+  - Format: "Rp 15.000.000"
+- **Product Stock**: Jumlah stok dengan icon kotak
+
+#### Section 3: Media & Status
+- **Product Image**: Gambar produk (jika tersedia)
+- **Is Active**: Icon check jika status aktif
+- **Is Featured**: Icon check jika produk featured
+- **Product Creation Date**: Tanggal pembuatan dalam format readable
+
+---
+
+### G. Perbandingan Sebelum & Sesudah Implementasi
+
+| Aspek | Sebelum (Form Input) | Sesudah (Info List) |
+|-------|------|---------|
+| **Tampilan** | Form input dengan field editable | Display profesional read-only |
+| **Interaksi** | User bisa mengedit data | User hanya bisa melihat data |
+| **Struktur** | Flat tanpa pengelompokan | Terorganisir dalam sections |
+| **Validitas Data** | Perlu validasi input | Data sudah pasti valid |
+| **User Experience** | Bingung untuk melihat data | Jelas dan mudah dipahami |
+
+---
+
+### H. Ringkasan Komponen Info List
+
+| Komponen | Fungsi | Contoh |
+|----------|--------|--------|
+| **Section** | Mengelompokkan data secara logis | `Section::make('Product Info')` |
+| **TextEntry** | Menampilkan teks biasa | `TextEntry::make('name')` |
+| **ImageEntry** | Menampilkan gambar | `ImageEntry::make('image')->disk('public')` |
+| **IconEntry** | Menampilkan boolean sebagai icon | `IconEntry::make('is_active')->boolean()` |
+| **badge()** | Format badge | `.badge()->color('success')` |
+| **color()** | Memberikan warna teks | `.color('primary')` |
+| **icon()** | Menambahkan icon | `.icon('heroicon-o-star')` |
+| **weight()** | Bold/normal text | `.weight('bold')` |
+| **formatStateUsing()** | Custom format | `.formatStateUsing(fn ($state) => 'Rp ' . $state)` |
+| **dateTime()** | Format tanggal | `.dateTime('d M Y, H:i')` |
+
+---
+
+### I. Jawaban Analisis & Diskusi (Bagian L)
+
+#### 1. Mengapa View Page tidak cocok menggunakan form input?
+
+**Jawaban:**
+View Page tidak cocok menggunakan form input karena:
+- **Confusing UX**: Pengguna akan sulit membedakan apakah ini halaman view atau edit. Mereka mungkin akan mencoba mengedit data padahal seharusnya hanya viewing.
+- **Data Validation**: Form input biasanya memiliki validasi yang dapat menampilkan error. Di halaman view, ini tidak diperlukan dan malah mengganggu.
+- **Performance**: Form input memiliki logic lebih kompleks dibanding display. Menggunakan form hanya untuk display adalah waste of resources.
+- **Security**: Menampilkan form input di view menawarkan kesempatan untuk manipulasi data melalui JavaScript browser, meski sudah ada backend validation.
+- **Visual Clarity**: Info List dengan sections memberikan penampilan yang lebih rapi, terstruktur, dan professional.
+
+#### 2. Apa perbedaan TextColumn dan TextEntry?
+
+**Jawaban:**
+
+| TextColumn | TextEntry |
+|-----------|-----------|
+| Digunakan di Table | Digunakan di Info List (View Page) |
+| Menampilkan data dalam bentuk kolom row | Menampilkan data dalam bentuk detail record |
+| Bersifat sortable dan dapat di-search | Read-only, tidak dapat di-sort |
+| Cocok untuk melihat daftar data | Cocok untuk melihat detail satu record |
+| Misalnya: Daftar produk di tabel | Misalnya: Detail produk saat view |
+
+**Contoh TextColumn:**
+```php
+TextColumn::make('price')->money('IDR')->sortable();
+```
+
+**Contoh TextEntry:**
+```php
+TextEntry::make('price')
+    ->label('Product Price')
+    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 0, ',', '.'));
+```
+
+#### 3. Kapan kita menggunakan badge?
+
+**Jawaban:**
+Badge digunakan ketika:
+- **Status sederhana**: Menampilkan status yang jelas dan singkat (Aktif, Inactive, Featured, dll)
+- **Quick scan**: Badge memudahkan user untuk quick scan tanpa membaca teks panjang
+- **Visual distinction**: Badge membuat teks menonjol dengan background color dan border
+- **Kategori**: Menampilkan kategori atau tag produk
+- **Priority level**: Badge bisa menampilkan tingkat prioritas dengan warna (merah=urgent, hijau=normal, dll)
+
+**Contoh penggunaan:**
+```php
+// SKU dengan badge success
+TextEntry::make('sku')->badge()->color('success');
+
+// Status dengan kondisional
+TextEntry::make('status')
+    ->badge()
+    ->color(fn (string $state): string =>
+        match($state) {
+            'active' => 'success',
+            'pending' => 'warning',
+            'inactive' => 'danger',
+        }
+    );
+```
+
+#### 4. Apa keuntungan menggunakan IconEntry untuk boolean?
+
+**Jawaban:**
+Keuntungan IconEntry untuk boolean:
+- **Quick visualization**: User langsung tahu true/false tanpa harus membaca teks "Yes/No" atau "1/0"
+- **Space efficient**: Icon memakan space lebih kecil dibanding teks
+- **Universal understanding**: Icon check dan silang dimengerti secara universal (tidak perlu teks)
+- **Accessibility**: Icon mudah terlihat dengan warna: hijau (check) untuk true, merah (silang) untuk false
+- **Professional look**: Menampilkan icon boolean membuat UI lebih professional dan clean
+- **Pattern matching**: User sudah terbiasa dengan pattern ini dari aplikasi lain (checkboxes, status indicators)
+
+**Perbandingan:**
+```
+Pakai TextEntry:  is_active: true (membingungkan, perlu dibaca)
+Pakai IconEntry:  ✓ (langsung tahu aktif)
+
+Pakai TextEntry:  is_featured: false (membingungkan)
+Pakai IconEntry:  ✗ (langsung tahu tidak featured)
+```
+
+---
+
+### J. Ringkasan Implementasi Week 8
+
+Fitur yang telah diimplementasikan:
+
+✅ **Mengubah View Page menjadi Info List**
+- ProductInfolist.php telah dibuat dengan structure yang rapi
+
+✅ **Menggunakan TextEntry**
+- Menampilkan name, id, sku, dan description
+
+✅ **Menggunakan ImageEntry**
+- Menampilkan product image dari disk public
+
+✅ **Menggunakan IconEntry untuk boolean**
+- Menampilkan is_active dan is_featured sebagai icon
+
+✅ **Menggunakan badge, icon, color**
+- SKU dengan badge success
+- Price dengan icon dolar
+- Stock dengan icon kotak
+- Created date dengan warna info
+
+✅ **Format tanggal dan harga**
+- Harga: "Rp 15.000.000" (formatStateUsing)
+- Tanggal: "16 Apr 2026, 10:30" (dateTime)
+
+✅ **Membuat data uji coba**
+- ProductFactory untuk generate data random
+- ProductSeeder untuk seed data spesifik
+- DatabaseSeeder diupdate untuk call ProductSeeder
+
+---
+
+### K. Tasks yang Sudah Diselesaikan (Dari Jobsheet Bagian K)
+
+#### ✅ Task 1: Tambahkan badge untuk SKU dengan warna berbeda
+```php
+TextEntry::make('sku')
+    ->label('Product SKU')
+    ->badge()
+    ->color('success')  // Warna hijau
+```
+
+#### ✅ Task 2: Tambahkan icon pada Stock
+```php
+TextEntry::make('stock')
+    ->label('Product Stock')
+    ->icon('heroicon-o-cube')  // Icon kotak
+```
+
+#### ✅ Task 3: Tambahkan format harga menjadi Rp dengan formatStateUsing()
+```php
+TextEntry::make('price')
+    ->label('Product Price')
+    ->icon('heroicon-o-currency-dollar')
+    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 0, ',', '.'))
+```
+
+#### ✅ Task 4: Buat minimal 2 product untuk pengujian
+- ProductFactory dibuat bisa generate unlimited products random
+- ProductSeeder membuat 5 + 2 produk spesifik = 7 total products
+
+#### ✅ Task 5: Screenshots (Perlu dijalankan saat database tersedia)
+- Section Product Info
+- Section Pricing & Stock  
+- Section Media & Status
+
+---
+
+### L. Persiapan untuk Testing
+
+Untuk menjalankan dan test aplikasi, gunakan perintah:
+
+```bash
+# 1. Migrate dan seed database
+php artisan migrate:refresh --seed
+
+# 2. Start development server
+php artisan serve
+
+# 3. Akses aplikasi di http://localhost:8000
+# Login dengan
+# Email: test@example.com
+# Password: password
+
+# 4. Navigasi ke Products di sidebar
+# Klik view pada salah satu product untuk melihat Info List
+```
+
+---
+
+### M. Kesimpulan
+
+Pada Jobsheet Week 8 ini, kami telah berhasil:
+
+1. **Memahami konsep Info List** - Komponen untuk menampilkan data read-only
+2. **Mengubah View Page** - Dari form input menjadi display informasi profesional
+3. **Menguasai komponen Info List** - TextEntry, ImageEntry, IconEntry
+4. **Formatting data** - Color, badge, icon, date formatting
+5. **Membuat test data** - Factory dan Seeder untuk data testing
+6. **Best practices** - Struktur section untuk UI yang terorganisir
+
+Info List memberikan pengalaman user yang jauh lebih baik dibanding form input ketika hanya menampilkan data. Dengan kombinasi TextEntry, ImageEntry, IconEntry, serta styling (color, badge, icon), halaman view menjadi professional dan mudah dipahami.
+
+---
+
+**Status Implementasi:** ✅ SELESAI
+
+**Tanggal:** 22 April 2026
+
+**File yang dibuat/dimodifikasi:**
+- ✅ `app/Filament/Resources/Products/Schemas/ProductInfolist.php` (Baru)
+- ✅ `database/factories/ProductFactory.php` (Baru)
+- ✅ `database/seeders/ProductSeeder.php` (Baru)
+- ✅ `database/seeders/DatabaseSeeder.php` (Updated)
+
+---
+
+*End of Report*
