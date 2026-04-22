@@ -17,12 +17,12 @@ Dalam sistem e-commerce, form untuk memasukkan data produk biasanya sangat panja
 Langkah pertama adalah membuat tabel products di database.
 
 **Perintah:**
-`ash
+```bash
 php artisan make:migration create_products_table
-`
+```
 
 **Kode Migrasi** (database/migrations/2026_04_16_044706_create_products_table.php):
-`php
+```php
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -50,7 +50,7 @@ return new class extends Migration
         Schema::dropIfExists('products');
     }
 };
-`
+```
 
 > 📸 **SCREENSHOT:**
 > ![Screenshot Migrasi Database](img/Migration.png)
@@ -59,12 +59,12 @@ return new class extends Migration
 #### 2. Membuat Model Product
 
 **Perintah:**
-`ash
+```bash
 php artisan make:model Product
-`
+```
 
-**Kode Model** (pp/Models/Product.php):
-`php
+**Kode Model** (app/Models/Product.php):
+```php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -86,14 +86,14 @@ class Product extends Model
         'stock' => 'integer',
     ];
 }
-`
+```
 
 #### 3. Membuat Resource Product di Filament
 
 **Perintah:**
-`ash
+```bash
 php artisan make:filament-resource Product
-`
+```
 
 **Catatan saat prompt muncul:**
 - Title attribute: 
@@ -110,8 +110,8 @@ o
 
 Mengubah form default menjadi form multi-step. Di sini juga langsung diterapkan penyelesaian dari Tugas M (Menambahkan icon pada step dan validasi minimal harga > 0).
 
-**Kode Form** (pp/Filament/Admin/Resources/Products/Schemas/ProductForm.php):
-`php
+**Kode Form** (app/Filament/Admin/Resources/Products/Schemas/ProductForm.php):
+```php
 namespace App\Filament\Admin\Resources\Products\Schemas;
 
 use Filament\Schemas\Schema;
@@ -177,7 +177,7 @@ class ProductForm
         ]);
     }
 }
-`
+```
 
 > 📸 **SCREENSHOT:** 
 > - **Product:** ![Wizard Step 1](img/product.png)
@@ -189,8 +189,8 @@ class ProductForm
 
 Karena kita sudah menggunakan tombol submit dari Wizard, tombol "Create" bawaan halaman harus dihilangkan agar tidak bingung.
 
-**Kode Page** (pp/Filament/Admin/Resources/Products/Pages/CreateProduct.php):
-`php
+**Kode Page** (app/Filament/Admin/Resources/Products/Pages/CreateProduct.php):
+```php
 namespace App\Filament\Admin\Resources\Products\Pages;
 
 use App\Filament\Admin\Resources\Products\ProductResource;
@@ -206,14 +206,14 @@ class CreateProduct extends CreateRecord
         return [];
     }
 }
-`
+```
 
 #### 6. Menampilkan Data pada Tabel (Termasuk Tugas M)
 
 Menampilkan data yang telah diinput ke dalam tabel Filament. Ini termasuk Tugas M.3 (menambahkan badge pada kolom status aktif).
 
-**Kode Table** (pp/Filament/Admin/Resources/Products/Tables/ProductsTable.php):
-`php
+**Kode Table** (app/Filament/Admin/Resources/Products/Tables/ProductsTable.php):
+```php
 namespace App\Filament\Admin\Resources\Products\Tables;
 
 use Filament\Tables\Table;
@@ -256,7 +256,7 @@ class ProductsTable
             ]);
     }
 }
-`
+```
 
 > 📸 **SCREENSHOT:** 
 > ![Tabel Products (Min. 3 Data)](img/tabel_products.png)
