@@ -1,9 +1,8 @@
 # Laporan Praktikum Pertemuan 11: Implementasi Search & Filter pada Table Filament
 
 **Mata Kuliah:** Pemrograman Web Lanjut  
-**Nama Mahasiswa:** [Nama Anda]  
-**NIM:** [NIM Anda]  
-
+**Nama Mahasiswa:** Nabhan Rizqi Julian Saputro
+**NIM:** 2341720255
 ---
 
 ## 1. Implementasi Global Search pada Kolom Text
