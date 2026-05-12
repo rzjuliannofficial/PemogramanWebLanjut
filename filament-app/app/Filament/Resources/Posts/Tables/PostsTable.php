@@ -6,6 +6,7 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Forms\Components\DatePicker;
@@ -20,22 +21,38 @@ class PostsTable
     return $table
         ->defaultSort('created_at', 'desc')
         ->columns([
+            TextColumn::make('id')
+                ->label('ID')
+                ->toggleable(isToggledHiddenByDefault: true),
             TextColumn::make('title')
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->toggleable(),
             TextColumn::make('slug')
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->toggleable(),
             TextColumn::make('category.name')
                 ->sortable()
-                ->searchable(),
-            ColorColumn::make('color'),
+                ->searchable()
+                ->toggleable(),
+            IconColumn::make('published')
+                ->boolean()
+                ->label('Published')
+                ->toggleable(),
+            TextColumn::make('tags')
+                ->label('Tags')
+                ->toggleable(isToggledHiddenByDefault: true),
+            ColorColumn::make('color')
+                ->toggleable(),
             ImageColumn::make('image')
-                ->disk('public'),
+                ->disk('public')
+                ->toggleable(),
             TextColumn::make('created_at')
                 ->label('Created At')
                 ->dateTime()
-                ->sortable(),
+                ->sortable()
+                ->toggleable(),
         ])
         ->filters([
             Filter::make('created_at')
