@@ -10,7 +10,11 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Checkbox;
 use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ReplicateAction;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 
@@ -74,6 +78,21 @@ class PostsTable
         ])
         ->recordActions([
             EditAction::make(),
+            DeleteAction::make(),
+            ReplicateAction::make(),
+            Action::make('toggle_publish')
+                ->label('Toggle Publish')
+                ->icon('heroicon-o-check-circle')
+                ->color('warning')
+                ->requiresConfirmation()
+                ->schema([
+                    Checkbox::make('published')
+                        ->label('Published')
+                        ->default(fn($record): bool => $record->published),
+                ])
+                ->action(function ($record, $data) {
+                    $record->update(['published' => $data['published']]);
+                }),
         ])
         ->toolbarActions([
             BulkActionGroup::make([
