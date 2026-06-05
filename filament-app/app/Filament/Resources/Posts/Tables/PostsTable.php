@@ -44,8 +44,9 @@ class PostsTable
                 ->boolean()
                 ->label('Published')
                 ->toggleable(),
-            TextColumn::make('tags')
+            TextColumn::make('tags.name')
                 ->label('Tags')
+                ->badge()
                 ->toggleable(isToggledHiddenByDefault: true),
             ColorColumn::make('color')
                 ->toggleable(),

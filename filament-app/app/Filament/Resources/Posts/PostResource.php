@@ -14,6 +14,8 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
+use App\Filament\Resources\Posts\PostResource\RelationManagers\TagsRelationManager;
+
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
@@ -35,7 +37,7 @@ class PostResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TagsRelationManager::class,
         ];
     }
 
