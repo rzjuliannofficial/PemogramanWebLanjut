@@ -32,6 +32,7 @@ Berikut adalah daftar laporan praktikum per minggu:
 - [📄 Jobsheet 12 - Implementasi Toggle Column](./filament-app/report/WEEK12/README.md)
 - [📄 Jobsheet 13 - Table Actions & Custom Action](./filament-app/report/WEEK13/README.md)
 - [📄 Jobsheet 14 - Implementasi Relation (HasMany)](./filament-app/report/WEEK14/README.md)
+- [📄 Jobsheet 15 - Implementasi Many-to-Many](./filament-app/report/WEEK15/README.md)
 
 
 ## Requirements
